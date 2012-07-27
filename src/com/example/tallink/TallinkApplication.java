@@ -6,12 +6,12 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Button.ClickEvent;
+import static com.example.tallink.service.CalculationTable.generateDummyData;
+import static com.example.tallink.service.CalculationTable.emptyTable;
 
 public class TallinkApplication extends Application {
-	private static String[] columns = { "number1", "number2", "operator",
-			"result" };
-	private IndexedContainer tableData = generateDummyData();
-
+	private IndexedContainer tableData = emptyTable();
+	
 	private Button button;
 	private Window mainWindow = new Window("Tallink Application");
 	private Table table = new Table();
@@ -20,45 +20,30 @@ public class TallinkApplication extends Application {
 	public void init() {
 		initButton();
 		initTable();
-		initLayout();
+		setMainWindow(mainWindow);
+	}
+	
+	private void fullTable(){
+		table.setContainerDataSource(generateDummyData());
+		mainWindow.addComponent(table);
 	}
 
 	private void initButton() {
-		button = new Button("Do Magic", new Button.ClickListener() {
-			
+		button = new Button("Do Magic Man", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				button.setCaption("stop pushing it already");
+				fullTable();
 			}
 		});
-	}
-
-	private static IndexedContainer generateDummyData() {
-		IndexedContainer ic = new IndexedContainer();
-		for (String p : columns) {
-			ic.addContainerProperty(p, String.class, "default");
-		}
-
-		for (int i = 0; i < 100; i++) {
-			Object id = ic.addItem();
-			ic.getContainerProperty(id, columns[0]).setValue("num_test_" + i);
-			ic.getContainerProperty(id, columns[1]).setValue("num_test_" + i);
-			ic.getContainerProperty(id, columns[2]).setValue("operator_test");
-			ic.getContainerProperty(id, columns[3]).setValue("empty_result");
-
-		}
-		return ic;
+		mainWindow.addComponent(button);
 	}
 
 	private void initTable() {
 		table.setContainerDataSource(tableData);
 		table.setSelectable(true);
+		mainWindow.addComponent(table);
 	}
 
-	public void initLayout() {
-		mainWindow.addComponent(button);
-		mainWindow.addComponent(table);
-		setMainWindow(mainWindow);
-	}
 
 }
