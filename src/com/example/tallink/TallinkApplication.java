@@ -26,7 +26,8 @@ public class TallinkApplication extends Application {
 		button = new Button("Do Magic", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				button.setEnabled(false);
+				dao.calculateResults();
+				table.refreshRowCache();
 			}
 		});
 		mainWindow.addComponent(button);

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.example.tallink.domain.Operand;
 import com.vaadin.data.util.sqlcontainer.RowId;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.ui.Table;
@@ -36,6 +37,15 @@ public class OperandDaoTest {
 	}
 	
 	@Test
+	public void testCalculateResults(){
+		dao.calculateResults();
+		assertEquals("9",dao.getContainer().getContainerProperty(findRowById(1), Operand.RESULT_PROP).toString());
+		assertEquals("12", dao.getContainer().getContainerProperty(findRowById(2), Operand.RESULT_PROP).toString());
+		
+		//dao.getContainer().getItem(findRowById(1)).getItemProperty(Operand.RESULT_PROP).getValue();
+	}
+	
+	
 	public void testTable() throws UnsupportedOperationException, SQLException{
 		SQLContainer db = dao.getContainer();
 		Table table = new Table("Some caption", db);
