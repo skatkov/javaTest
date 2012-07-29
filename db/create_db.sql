@@ -19,13 +19,15 @@ USE tallink;
 
 CREATE TABLE operand
 (
+	id MEDIUMINT NOT NULL AUTO_INCREMENT,
 	operand_a Int NOT NULL,
 	operand_b Int NOT NULL,
-	result Int
+	result Int,
+	PRIMARY KEY (id)
 );	
 
-INSERT INTO operand VALUES ('5', '4', NULL);
-INSERT INTO operand VALUES ('3', '9', NULL);
+INSERT INTO operand(operand_a, operand_b) VALUES ('5', '4');
+INSERT INTO operand(operand_a, operand_b) VALUES ('3', '9');
 
 CREATE TABLE operations
 (
