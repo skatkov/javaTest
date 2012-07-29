@@ -23,7 +23,9 @@ CREATE TABLE operand
 	operand_b Int NOT NULL,
 	result Int
 );	
-	
+
+INSERT INTO operand VALUES ('5', '4', NULL);
+INSERT INTO operand VALUES ('3', '9', NULL);
 
 CREATE TABLE operations
 (
@@ -31,3 +33,5 @@ CREATE TABLE operations
 	description varchar(255),
 	PRIMARY KEY (name)
 );
+
+INSERT INTO operations VALUES ('+', 'plus');
