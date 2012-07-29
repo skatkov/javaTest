@@ -1,4 +1,6 @@
 
+DROP DATABASE tallink;
+
 CREATE DATABASE tallink;
 
 GRANT ALL PRIVILEGES
@@ -16,16 +18,16 @@ WITH GRANT OPTION;
 USE tallink;
 
 CREATE TABLE operand
-{	
+(
 	operand_a Int NOT NULL,
 	operand_b Int NOT NULL,
 	result Int
-}
+);	
+	
 
 CREATE TABLE operations
-
-{
+(
 	name varchar(1) NOT NULL,
 	description varchar(255),
 	PRIMARY KEY (name)
-}
+);
