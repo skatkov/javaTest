@@ -2,30 +2,32 @@ package com.example.tallink.dao;
 
 import java.sql.SQLException;
 
-import com.vaadin.data.Container;
+import com.example.tallink.domain.Operand;
+import com.example.tallink.helper.DatabaseHelper;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
-import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
-import com.vaadin.data.util.sqlcontainer.connection.SimpleJDBCConnectionPool;
-import com.vaadin.data.util.sqlcontainer.query.FreeformQuery;
+
+import static com.example.tallink.helper.DatabaseHelper.findRowById;
+
 
 public class OperandDao {
-	private JDBCConnectionPool connectionPool;
-	
-	public OperandDao() {
-		try {
-			connectionPool = new SimpleJDBCConnectionPool(
-			        "com.mysql.jdbc.Driver",
-			        "jdbc:mysql://localhost/tallink", "tallink_user", "tallink_pass", 2, 5);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	private SQLContainer container = null;
+	private DatabaseHelper db = new DatabaseHelper();
+
+	public SQLContainer getContainer() {
+		if (container == null) {
+			try {
+				container = db.getOperandContainer();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
+		return container;
 	}
-	
-	public Container buildContainer() throws SQLException{
-		return new SQLContainer(new FreeformQuery("SELECT * FROM operand", connectionPool));
+
+	public void addResult(Object primaryKey, String result) {
+		container.getItem(findRowById(primaryKey)).getItemProperty(Operand.RESULT_PROP)
+				.toString();
 	}
-	
 
 }

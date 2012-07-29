@@ -7,9 +7,17 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.vaadin.data.util.sqlcontainer.RowId;
+import com.vaadin.data.util.sqlcontainer.SQLContainer;
+import com.vaadin.ui.Table;
+
 public class OperandDaoTest {
 	
 	public OperandDao dao;
+	
+	private static RowId findRowById(Object object){
+		return new RowId(new Object[]{object});
+	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -17,8 +25,26 @@ public class OperandDaoTest {
 	}
 	
 	@Test
-	public void test() throws SQLException {
-		assertEquals(2, dao.buildContainer().size());
+	public void testContainerSize() throws SQLException {
+		assertEquals(2, dao.getContainer().size());
 	}
+	
+	@Test
+	public void testContainerKeys() throws SQLException {
+		
+		assertTrue(dao.getContainer().getItemIds().toString().equals("[1, 2]"));
+	}
+	
+	@Test
+	public void testTable() throws UnsupportedOperationException, SQLException{
+		SQLContainer db = dao.getContainer();
+		Table table = new Table("Some caption", db);
+		table.getItem(findRowById(1)).getItemProperty("result").setValue("9");
+		assertEquals("9", table.getItem(findRowById(1)).getItemProperty("result").toString());
+		db.commit();
+				
+		
+	}
+	
 
 }
