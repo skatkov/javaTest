@@ -1,5 +1,8 @@
 package com.example.tallink;
 
+import java.sql.SQLException;
+
+import com.example.tallink.dao.OperandDao;
 import com.vaadin.Application;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Window;
@@ -24,7 +27,12 @@ public class TallinkApplication extends Application {
 	}
 	
 	private void fullTable(){
-		table.setContainerDataSource(generateDummyData());
+		OperandDao dao = new OperandDao();
+		try {
+			table.setContainerDataSource(dao.buildContainer());
+		} catch (SQLException e) {
+			table.setContainerDataSource(tableData);
+		}
 	}
 
 	private void initButton() {

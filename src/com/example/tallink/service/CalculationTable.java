@@ -13,8 +13,6 @@ public class CalculationTable {
 		for (String p : columns) {
 			ic.addContainerProperty(p, String.class, "default");
 		}
-		
-		
 		return ic;
 		
 	}
