@@ -25,15 +25,14 @@ public class TallinkApplication extends Application {
 	
 	private void fullTable(){
 		table.setContainerDataSource(generateDummyData());
-		mainWindow.addComponent(table);
 	}
 
 	private void initButton() {
-		button = new Button("Do Magic Man", new Button.ClickListener() {
+		button = new Button("Do Magic", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				button.setCaption("stop pushing it already");
 				fullTable();
+				button.setEnabled(false);
 			}
 		});
 		mainWindow.addComponent(button);
